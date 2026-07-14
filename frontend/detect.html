@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        AI Detection | SilentVoice AI
+    </title>
+
+
+    <link
+        rel="stylesheet"
+        href="css/detect.css"
+    >
+
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+</head>
+
+
+
+<body>
+
+
+
+<nav>
+
+
+    <a href="index.html"
+       class="logo">
+
+        SilentVoice<span>AI</span>
+
+    </a>
+
+
+    <a href="index.html"
+       class="back-btn">
+
+        Back Home
+
+    </a>
+
+
+</nav>
+
+
+
+<main>
+
+
+<section class="detection-section">
+
+
+
+    <p class="tag">
+
+        AI Powered Detection
+
+    </p>
+
+
+
+    <h1>
+
+        Sign Language Detection
+
+    </h1>
+
+
+
+    <p class="subtitle">
+
+        Upload a hand sign image and let our
+        trained neural network detect the sign.
+
+    </p>
+
+
+
+    <div class="detect-card">
+
+
+
+        <div
+            class="upload-box"
+            id="uploadBox"
+        >
+
+
+
+            <input
+                type="file"
+                id="imageInput"
+                accept="image/*"
+                hidden
+            >
+
+
+
+            <img
+                id="previewImage"
+                class="preview-image"
+                alt="Sign preview"
+            >
+
+
+
+            <div id="uploadContent">
+
+
+
+                <div class="upload-icon">
+
+                    📷
+
+                </div>
+
+
+
+                <h3>
+
+                    Upload Sign Image
+
+                </h3>
+
+
+
+                <p>
+
+                    Click here to choose an image
+
+                </p>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+        <button
+            id="detectButton"
+            class="detect-btn"
+        >
+
+            Detect Sign
+
+        </button>
+
+
+
+        <p
+            id="loadingText"
+            class="loading-text"
+        >
+
+            AI is analyzing your sign...
+
+        </p>
+
+
+
+        <div
+            id="resultCard"
+            class="result-card"
+        >
+
+
+
+            <p>
+
+                DETECTED SIGN
+
+            </p>
+
+
+
+            <h2 id="prediction">
+
+                -
+
+            </h2>
+
+
+
+            <span id="confidence">
+
+                Confidence: -
+
+            </span>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+</section>
+
+
+</main>
+
+
+
+<script src="js/detect.js"></script>
+
+
+
+</body>
+
+</html>

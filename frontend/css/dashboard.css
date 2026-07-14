@@ -1,0 +1,535 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f7fc;
+}
+
+.container{
+    display:flex;
+    min-height:100vh;
+}
+
+/* ===========================
+   Sidebar
+=========================== */
+
+.sidebar{
+    width:250px;
+    background:#1e3a8a;
+    color:white;
+    display:flex;
+    flex-direction:column;
+    padding:30px 20px;
+    position:fixed;
+    height:100%;
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.logo h2{
+    font-size:30px;
+    font-weight:700;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar ul li{
+    padding:15px 20px;
+    margin-bottom:12px;
+    border-radius:12px;
+    cursor:pointer;
+    transition:.3s;
+    font-size:16px;
+}
+
+.sidebar ul li:hover{
+    background:#2563eb;
+}
+
+.active{
+    background:#2563eb;
+}
+
+/* ===========================
+   Main Area
+=========================== */
+
+.main{
+    flex:1;
+    margin-left:250px;
+    padding:35px;
+}
+
+/* ===========================
+   Navbar
+=========================== */
+
+.navbar{
+    background:white;
+    border-radius:15px;
+    padding:20px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.navbar h2{
+    color:#1e3a8a;
+}
+
+.navbar p{
+    color:#777;
+    margin-top:5px;
+}
+
+.user-box{
+    background:#2563eb;
+    color:white;
+    padding:12px 20px;
+    border-radius:10px;
+    font-weight:600;
+}
+
+/* ===========================
+   Cards
+=========================== */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+    margin-top:35px;
+}
+.card{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card h3{
+    color:#555;
+    margin-bottom:15px;
+}
+
+.card h1{
+    color:#2563eb;
+    font-size:36px;
+}
+
+/* ===========================
+   Table
+=========================== */
+
+.table-section{
+    background:white;
+    margin-top:40px;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.table-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.table-header h2{
+    color:#1e3a8a;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead{
+    background:#2563eb;
+    color:white;
+}
+
+th{
+    padding:16px;
+    text-align:left;
+}
+
+td{
+    padding:15px;
+    border-bottom:1px solid #eee;
+}
+
+tbody tr:hover{
+    background:#f8fafc;
+}
+
+/* ===========================
+   Buttons
+=========================== */
+
+.btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+}
+
+/* ===========================
+   Scrollbar
+=========================== */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#2563eb;
+    border-radius:10px;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:900px){
+
+.cards{
+    grid-template-columns:1fr;
+}
+
+.sidebar{
+    width:210px;
+}
+
+.main{
+    margin-left:210px;
+}
+
+}
+
+@media(max-width:768px){
+
+.container{
+    flex-direction:column;
+}
+
+.sidebar{
+    position:relative;
+    width:100%;
+    height:auto;
+}
+
+.main{
+    margin-left:0;
+}
+
+.navbar{
+    flex-direction:column;
+    gap:15px;
+    align-items:flex-start;
+}
+
+.table-section{
+    overflow-x:auto;
+}
+
+table{
+    min-width:650px;
+}
+
+}
+
+/* ===========================
+Search
+=========================== */
+
+.search-box{
+
+    width:280px;
+    padding:12px;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    outline:none;
+
+    font-size:15px;
+
+}
+
+.search-box:focus{
+
+    border-color:#2563eb;
+
+}
+
+.action-buttons{
+    display:flex;
+    gap:12px;          /* Increase/decrease this value for more/less space */
+    justify-content:center;
+    align-items:center;
+}
+
+.action-btn{
+    border:none;
+    padding:8px 16px;
+    border-radius:8px;
+    cursor:pointer;
+    color:white;
+    font-weight:600;
+}
+
+.edit{
+    background:#16a34a;
+}
+
+.delete{
+    background:#dc2626;
+}
+/* ===========================
+Profile
+=========================== */
+
+.profile-card{
+
+    background:white;
+
+    width:500px;
+
+    margin:40px auto;
+
+    padding:35px;
+
+    border-radius:18px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.avatar{
+
+    width:100px;
+
+    height:100px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-size:40px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:50%;
+
+    margin:auto;
+
+    margin-bottom:30px;
+
+}
+
+.input-group{
+
+    margin-bottom:20px;
+
+}
+
+.input-group label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-weight:600;
+
+}
+
+.input-group input{
+
+    width:100%;
+
+    padding:12px;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    outline:none;
+
+}
+
+.save-btn{
+
+    width:100%;
+
+    padding:14px;
+
+    background:#2563eb;
+
+    color:white;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+}
+
+.save-btn:hover{
+
+    background:#1d4ed8;
+
+}
+.action-buttons{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    align-items:center;
+}
+
+/* =====================================
+   SilentVoice Dashboard
+===================================== */
+
+.card{
+    position:relative;
+    overflow:hidden;
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:6px;
+    height:100%;
+    background:#2563eb;
+}
+
+.card p{
+    color:#777;
+    margin-top:10px;
+    font-size:14px;
+}
+
+/* Quick Action Buttons */
+
+.action-buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.action-btn{
+    padding:14px 28px;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    color:white;
+    transition:.3s;
+}
+
+.action-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+.primary{
+    background:#2563eb;
+}
+
+.secondary{
+    background:#16a34a;
+}
+
+.history{
+    background:#9333ea;
+}
+
+/* Prediction Table */
+
+#predictionTable td{
+    text-align:center;
+}
+
+#predictionTable tr:hover{
+    background:#eef4ff;
+}
+
+/* Sidebar */
+
+.sidebar ul li span{
+    margin-left:8px;
+}
+
+/* Welcome */
+
+#welcome{
+    font-size:28px;
+    font-weight:700;
+}
+
+/* Logo */
+
+.logo h2{
+    font-size:26px;
+    line-height:1.4;
+}
+
+/* Cards Animation */
+
+.card{
+    animation:fadeIn .5s ease;
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}

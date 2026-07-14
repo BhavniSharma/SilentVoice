@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual Environments
+.mlvenv/
+.venv/
+venv/
+
+# VS Code
+.vscode/
+
+# Node
+node_modules/
+
+# Databases
+*.db
+
+# Trained Models
+*.keras
+
+# Dataset
+dataset/custom_raw/
+dataset/kaggle_raw/
+dataset/processed/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log

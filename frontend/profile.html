@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Profile | ConnectHub</title>
+
+<link rel="stylesheet" href="css/dashboard.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <h2>ConnectHub</h2>
+        </div>
+
+        <ul>
+
+            <li onclick="window.location='dashboard.html'">
+                🏠 Dashboard
+            </li>
+
+            <li onclick="window.location='users.html'">
+                👥 Users
+            </li>
+
+            <li class="active">
+                👤 Profile
+            </li>
+
+            <li>
+                ⚙ Settings
+            </li>
+
+            <li id="logoutBtn">
+                🚪 Logout
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <main class="main">
+
+        <nav class="navbar">
+
+            <h2>My Profile</h2>
+
+        </nav>
+
+        <div class="profile-card">
+
+            <div class="avatar">
+
+                👤
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Name</label>
+
+                <input
+                type="text"
+                id="name">
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Email</label>
+
+                <input
+                type="email"
+                id="email">
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Age</label>
+
+                <input
+                type="number"
+                id="age">
+
+            </div>
+
+            <button
+            class="save-btn"
+            id="saveBtn">
+
+            Save Changes
+
+            </button>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="js/profile.js"></script>
+
+</body>
+
+</html>
