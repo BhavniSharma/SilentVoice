@@ -3,15 +3,18 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login | SilentVoice AI</title>
+<title>Login | SilentVoice AI</title>
 
-    <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
 
@@ -19,27 +22,19 @@
 
 <div class="container">
 
-    <!-- Logo -->
-
     <div class="logo">
-
-        
 
         <h1>SilentVoice AI</h1>
 
-        <h3>Giving Every Gesture a Voice</h3>
+        <h3>Welcome Back 👋</h3>
 
         <p>
-            AI Powered Sign Language Recognition Platform
+            Sign in to continue using SilentVoice AI
         </p>
 
     </div>
 
-    <!-- Message -->
-
     <div id="message"></div>
-
-    <!-- Login Form -->
 
     <form id="loginForm">
 
@@ -55,15 +50,32 @@
 
         </div>
 
-        <div class="input-box">
+        <div class="input-box password-box">
 
             <label>Password</label>
 
-            <input
-                type="password"
-                id="password"
-                placeholder="Enter your password"
-                required>
+            <div class="password-wrapper">
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required>
+
+                <i class="fa-solid fa-eye toggle-password"
+                   onclick="togglePassword()"></i>
+
+            </div>
+
+        </div>
+
+        <div class="forgot">
+
+            <a href="#">
+
+                Forgot Password?
+
+            </a>
 
         </div>
 
@@ -72,7 +84,7 @@
             class="btn"
             id="loginBtn">
 
-            🔐 Sign In
+            Sign In
 
         </button>
 
@@ -88,7 +100,7 @@
 
         New to SilentVoice AI?
 
-        <a href="register.html">
+        <a href="/register">
 
             Create Account
 
@@ -96,9 +108,51 @@
 
     </div>
 
+    <div class="link" style="margin-top:18px;">
+
+        <a href="/">
+
+            ← Back to Home
+
+        </a>
+
+    </div>
+
 </div>
 
-<script src="js/login.js"></script>
+<script>
+
+function togglePassword(){
+
+    const password =
+    document.getElementById("password");
+
+    const eye =
+    document.querySelector(".toggle-password");
+
+    if(password.type==="password"){
+
+        password.type="text";
+
+        eye.classList.remove("fa-eye");
+        eye.classList.add("fa-eye-slash");
+
+    }
+
+    else{
+
+        password.type="password";
+
+        eye.classList.remove("fa-eye-slash");
+        eye.classList.add("fa-eye");
+
+    }
+
+}
+
+</script>
+
+<script src="/js/login.js"></script>
 
 </body>
 

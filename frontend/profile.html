@@ -6,9 +6,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>My Profile | ConnectHub</title>
+<title>My Profile | SilentVoice AI</title>
 
-<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="/css/dashboard.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -23,42 +23,62 @@
     <aside class="sidebar">
 
         <div class="logo">
-            <h2>ConnectHub</h2>
+
+            <h2>SilentVoice AI</h2>
+
         </div>
 
         <ul>
 
-            <li onclick="window.location='dashboard.html'">
+            <li onclick="window.location='/home'">
+
                 🏠 Dashboard
+
             </li>
 
-            <li onclick="window.location='users.html'">
-                👥 Users
+            <li onclick="window.location='/detect'">
+
+                🤖 Detect Sign
+
             </li>
 
             <li class="active">
-                👤 Profile
+
+                👤 My Profile
+
             </li>
 
-            <li>
-                ⚙ Settings
+            <li onclick="window.location='/history'">
+
+                📜 History
+
             </li>
 
             <li id="logoutBtn">
+
                 🚪 Logout
+
             </li>
 
         </ul>
 
     </aside>
 
+
+
     <main class="main">
 
         <nav class="navbar">
 
-            <h2>My Profile</h2>
+            <h2>
+
+                My Profile
+
+            </h2>
 
         </nav>
+
+
 
         <div class="profile-card">
 
@@ -68,41 +88,64 @@
 
             </div>
 
-            <div class="input-group">
 
-                <label>Name</label>
-
-                <input
-                type="text"
-                id="name">
-
-            </div>
 
             <div class="input-group">
 
-                <label>Email</label>
+                <label>
+
+                    Full Name
+
+                </label>
 
                 <input
-                type="email"
-                id="email">
+                    type="text"
+                    id="name">
 
             </div>
+
+
 
             <div class="input-group">
 
-                <label>Age</label>
+                <label>
+
+                    Email
+
+                </label>
 
                 <input
-                type="number"
-                id="age">
+                    type="email"
+                    id="email"
+                    readonly>
 
             </div>
+
+
+
+            <div class="input-group">
+
+                <label>
+
+                    Age
+
+                </label>
+
+                <input
+                    type="number"
+                    id="age"
+                    min="1"
+                    max="120">
+
+            </div>
+
+
 
             <button
-            class="save-btn"
-            id="saveBtn">
+                class="save-btn"
+                id="saveBtn">
 
-            Save Changes
+                Save Changes
 
             </button>
 
@@ -112,7 +155,7 @@
 
 </div>
 
-<script src="js/profile.js"></script>
+<script src="/js/profile.js"></script>
 
 </body>
 

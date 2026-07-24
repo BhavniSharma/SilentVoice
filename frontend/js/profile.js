@@ -80,6 +80,6 @@ document.getElementById("logoutBtn").onclick = () => {
 
     localStorage.removeItem("user");
 
-    window.location.href = "login.html";
+    window.location.href = "/login";
 
 };

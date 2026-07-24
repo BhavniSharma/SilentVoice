@@ -8,226 +8,459 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>
-        AI Detection | SilentVoice AI
-    </title>
+    <title>SilentVoice AI | Detection</title>
 
+    <link rel="stylesheet"
+          href="/css/detect.css">
 
-    <link
-        rel="stylesheet"
-        href="css/detect.css"
-    >
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
 
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
 
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
 
 </head>
 
-
-
 <body>
 
-
+<!-- =========================
+        NAVBAR
+========================== -->
 
 <nav>
 
-
-    <a href="index.html"
+    <a href="/home"
        class="logo">
 
         SilentVoice<span>AI</span>
 
     </a>
 
-
-    <a href="index.html"
+    <a href="/dashboard"
+       id="dashboardBtn"
        class="back-btn">
 
-        Back Home
+        ← Dashboard
 
     </a>
 
-
 </nav>
 
-
+<!-- =========================
+          MAIN
+========================== -->
 
 <main>
 
-
 <section class="detection-section">
 
+    <div class="hero">
 
+        <span class="tag">
 
-    <p class="tag">
+            AI Powered Detection
 
-        AI Powered Detection
+        </span>
 
-    </p>
+        <h1>
 
+            Sign Language Detection
 
+        </h1>
 
-    <h1>
+        <p class="subtitle">
 
-        Sign Language Detection
-
-    </h1>
-
-
-
-    <p class="subtitle">
-
-        Upload a hand sign image and let our
-        trained neural network detect the sign.
-
-    </p>
-
-
-
-    <div class="detect-card">
-
-
-
-        <div
-            class="upload-box"
-            id="uploadBox"
-        >
-
-
-
-            <input
-                type="file"
-                id="imageInput"
-                accept="image/*"
-                hidden
-            >
-
-
-
-            <img
-                id="previewImage"
-                class="preview-image"
-                alt="Sign preview"
-            >
-
-
-
-            <div id="uploadContent">
-
-
-
-                <div class="upload-icon">
-
-                    📷
-
-                </div>
-
-
-
-                <h3>
-
-                    Upload Sign Image
-
-                </h3>
-
-
-
-                <p>
-
-                    Click here to choose an image
-
-                </p>
-
-
-
-            </div>
-
-
-
-        </div>
-
-
-
-        <button
-            id="detectButton"
-            class="detect-btn"
-        >
-
-            Detect Sign
-
-        </button>
-
-
-
-        <p
-            id="loadingText"
-            class="loading-text"
-        >
-
-            AI is analyzing your sign...
+            Upload a hand sign image or use your live camera.
+            SilentVoice AI analyzes your gesture using
+            MediaPipe + CNN and predicts the corresponding
+            ASL alphabet in real time.
 
         </p>
 
+    </div>
 
+    <!-- =========================
+            MODE SWITCH
+    ========================== -->
 
-        <div
-            id="resultCard"
-            class="result-card"
-        >
+    <div class="mode-switch">
 
+        <button
+            id="uploadTab"
+            class="mode-btn active">
 
+            <i data-lucide="image"></i>
 
-            <p>
+            Upload Image
 
-                DETECTED SIGN
+        </button>
 
-            </p>
+        <button
+            id="cameraTab"
+            class="mode-btn">
 
+            <i data-lucide="camera"></i>
 
+            Live Camera
 
-            <h2 id="prediction">
-
-                -
-
-            </h2>
-
-
-
-            <span id="confidence">
-
-                Confidence: -
-
-            </span>
-
-
-
-        </div>
-
-
+        </button>
 
     </div>
 
+    <!-- =========================
+          DASHBOARD LAYOUT
+    ========================== -->
 
+    <div class="dashboard-layout">
+
+        <!-- =========================
+             LEFT PANEL
+        ========================== -->
+
+        <div class="workspace-card">
+
+            <!-- Upload Workspace -->
+
+            <div
+                id="uploadWorkspace"
+                class="workspace">
+
+                <div
+                    id="uploadBox"
+                    class="upload-box">
+
+                    <input
+                        id="imageInput"
+                        type="file"
+                        accept="image/*"
+                        hidden>
+
+                    <img
+                        id="previewImage"
+                        class="preview-image"
+                        alt="Preview">
+
+                    <div id="uploadContent">
+
+                        <div class="workspace-icon">
+
+                            <i data-lucide="upload-cloud"></i>
+
+                        </div>
+
+                        <h3>
+
+                            Upload Sign Image
+
+                        </h3>
+
+                        <p>
+
+                            Drag & Drop or Click to Upload
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <button
+                    id="detectButton"
+                    class="primary-btn">
+
+                    Detect Sign
+
+                </button>
+
+            </div>
+
+            <!-- Camera Workspace -->
+
+            <div
+                id="cameraWorkspace"
+                class="workspace hidden">
+
+                <div class="camera-box">
+
+                    <div class="camera-container">
+
+                        <video
+                            id="cameraPreview"
+                            autoplay
+                            playsinline>
+
+                        </video>
+
+                        <div
+                            id="cameraPlaceholder">
+
+                            <i data-lucide="camera"></i>
+
+                            <p>
+
+                                Click Start Camera
+
+                            </p>
+
+                        </div>
+
+                        <div class="detection-frame">
+
+                            <div class="corner top-left"></div>
+
+                            <div class="corner top-right"></div>
+
+                            <div class="corner bottom-left"></div>
+
+                            <div class="corner bottom-right"></div>
+
+                        </div>
+
+                        <div
+                            id="handStatus"
+                            class="hand-status">
+
+                            🔴 No Hand Detected
+
+                        </div>
+
+                        <p class="frame-text">
+
+                            Keep your hand inside the frame
+
+                        </p>
+
+                        <canvas
+                            id="captureCanvas"
+                            style="display:none;">
+
+                        </canvas>
+
+                    </div>
+
+                </div>
+
+                <div class="camera-buttons">
+
+                    <button
+                        id="startCamera"
+                        class="primary-btn">
+
+                        <i data-lucide="video"></i>
+
+                        Start Camera
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+                <!-- =========================
+             RIGHT PANEL
+        ========================== -->
+
+        <aside
+            id="resultCard"
+            class="ai-panel">
+
+            <!-- AI Header -->
+
+            <div class="ai-header">
+
+                <div class="ai-icon">
+
+                    <i data-lucide="brain-circuit"></i>
+
+                </div>
+
+                <div>
+
+                    <h2>
+
+                        AI Analysis
+
+                    </h2>
+
+                    <p>
+
+                        SilentVoice Neural Engine
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Prediction Circle -->
+
+            <div class="prediction-wrapper">
+
+                <div class="prediction-circle">
+
+                    <span id="prediction">
+
+                        -
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- Confidence -->
+
+            <div class="confidence-card">
+
+                <div class="confidence-top">
+
+                    <span>
+
+                        Confidence
+
+                    </span>
+
+                    <span id="confidence">
+
+                        -
+
+                    </span>
+
+                </div>
+
+                <div class="progress-bar">
+
+                    <div
+                        id="confidenceFill"
+                        class="progress-fill">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Divider -->
+
+            <div class="divider"></div>
+
+            <!-- Recent Predictions -->
+
+            <div class="history-card">
+
+                <h3>
+
+                    Recent Predictions
+
+                </h3>
+
+                <div
+                    id="historyContainer"
+                    class="history-list">
+
+                    <p class="empty-text">
+
+                        No predictions yet
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Divider -->
+
+            <div class="divider"></div>
+
+            <!-- Word Builder -->
+
+            <div class="word-card">
+
+                <h3>
+
+                    Current Word
+
+                </h3>
+
+                <div
+                    id="currentWord"
+                    class="word-display">
+
+                    —
+
+                </div>
+
+            </div>
+
+            <!-- Buttons -->
+
+            <div class="action-buttons">
+
+                <button
+                    id="speakBtn"
+                    class="secondary-btn">
+
+                    <i data-lucide="volume-2"></i>
+
+                    Speak
+
+                </button>
+
+                <button
+                    id="clearBtn"
+                    class="danger-btn">
+
+                    <i data-lucide="trash-2"></i>
+
+                    Clear
+
+                </button>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+    <!-- Loading -->
+
+    <div
+        id="loadingText"
+        class="loading-text">
+
+        <div class="loader"></div>
+
+        <span>
+
+            AI is analyzing your gesture...
+
+        </span>
+
+    </div>
 
 </section>
 
-
 </main>
 
+<script src="/js/detect.js"></script>
 
+<script>
 
-<script src="js/detect.js"></script>
+    lucide.createIcons();
 
-
+</script>
 
 </body>
 

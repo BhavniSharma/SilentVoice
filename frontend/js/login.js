@@ -31,7 +31,7 @@ loginForm.addEventListener("submit", async function (e) {
 
     try {
 
-        const response = await fetch("http://127.0.0.1:8000/login", {
+        const response = await fetch("http://127.0.0.1:8001/login", {
 
             method: "POST",
 
@@ -52,7 +52,7 @@ loginForm.addEventListener("submit", async function (e) {
         JSON.stringify(data.user)
     );
 
-    window.location.href = "dashboard.html";
+    window.location.href = "/";
 
 } else {
 

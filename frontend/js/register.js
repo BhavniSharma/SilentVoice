@@ -27,7 +27,7 @@ registerForm.addEventListener("submit", async (e) => {
 
     try {
 
-        const response = await fetch("http://127.0.0.1:8000/users", {
+        const response = await fetch("http://127.0.0.1:8001/users", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -43,7 +43,7 @@ registerForm.addEventListener("submit", async (e) => {
 
         if (response.ok) {
             alert("Registration Successful!");
-            window.location.href = "login.html";
+            window.location.href = "/login";
         } else {
             alert(data.detail || data.error || "Registration Failed");
         }

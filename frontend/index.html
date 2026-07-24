@@ -8,292 +8,430 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>SilentVoice AI</title>
+    <title>Dashboard | SilentVoice AI</title>
 
-    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="/css/index.css">
 
     <link rel="preconnect"
           href="https://fonts.googleapis.com">
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
 
 </head>
 
-
 <body>
 
+<!-- ========================= NAVBAR ========================= -->
 
-<nav>
+<nav class="navbar">
 
     <div class="logo">
 
-        SilentVoice<span>AI</span>
+        
+        <span>SilentVoice AI</span>
 
     </div>
 
+    <div class="nav-links">
 
-    <ul>
+        <a href="/dashboard"
+           class="active">
 
-        <li>
-
-            <a href="#features">
-
-                Features
-
-            </a>
-
-        </li>
-
-
-        <li>
-
-            <a href="login.html">
-
-                Login
-
-            </a>
-
-        </li>
-
-
-        <li>
-
-            <a href="register.html"
-               class="nav-btn">
-
-                Get Started
-
-            </a>
-
-        </li>
-
-    </ul>
-
-</nav>
-
-
-
-<section class="hero">
-
-
-    <div class="hero-left">
-
-
-        <p class="tag">
-
-            AI Powered Accessibility
-
-        </p>
-
-
-        <h1>
-
-            Breaking Communication
-            Barriers with AI
-
-        </h1>
-
-
-        <p class="description">
-
-            SilentVoice AI translates sign language into
-            text and speech using Deep Learning,
-            Computer Vision and FastAPI.
-
-        </p>
-
-
-        <div class="hero-buttons">
-
-
-            <a href="register.html">
-
-                <button class="primary">
-
-                    Get Started
-
-                </button>
-
-            </a>
-
-
-            <a href="#features">
-
-                <button class="secondary">
-
-                    Learn More
-
-                </button>
-
-            </a>
-
-
-        </div>
-
-
-    </div>
-
-
-
-    <div class="hero-right">
-
-
-        <div class="glass-card">
-
-
-            <div class="circle"></div>
-
-
-            <h2>
-
-                AI Vision
-
-            </h2>
-
-
-            <p>
-
-                Real-Time Sign Detection
-
-            </p>
-
-
-        </div>
-
-
-    </div>
-
-
-</section>
-
-
-
-<section id="features"
-         class="features">
-
-
-    <h2>
-
-        Why SilentVoice AI?
-
-    </h2>
-
-
-
-    <div class="feature-grid">
-
-
-
-        <a href="detect.html"
-           class="feature-link">
-
-
-            <div class="feature-card">
-
-
-                <h3>
-
-                    🤖 AI Detection
-
-                </h3>
-
-
-                <p>
-
-                    Detect sign language using your own
-                    trained neural network.
-
-                </p>
-
-
-            </div>
-
+            Dashboard
 
         </a>
 
+        <a href="/profile-page">
 
+            Profile
 
-        <div class="feature-card">
+        </a>
 
+        <button id="logoutBtn">
 
-            <h3>
+            Logout
 
-                📷 Live Camera
-
-            </h3>
-
-
-            <p>
-
-                Real-time gesture recognition
-                through webcam.
-
-            </p>
-
-
-        </div>
-
-
-
-        <div class="feature-card">
-
-
-            <h3>
-
-                📚 Learning Mode
-
-            </h3>
-
-
-            <p>
-
-                Practice and improve sign
-                language skills.
-
-            </p>
-
-
-        </div>
-
-
-
-        <div class="feature-card">
-
-
-            <h3>
-
-                ☁ Cloud Ready
-
-            </h3>
-
-
-            <p>
-
-                Deploy seamlessly using AWS EC2.
-
-            </p>
-
-
-        </div>
-
+        </button>
 
     </div>
 
+</nav>
 
-</section>
+<!-- ========================= MAIN ========================= -->
 
+<main class="dashboard">
 
+    <!-- ================= WELCOME ================= -->
+
+    <section class="welcome">
+
+        <div class="welcome-text">
+
+            <p class="greeting"
+               id="greeting">
+
+                👋 Welcome Back
+
+            </p>
+
+            <h1>
+
+                Ready to translate sign language today?
+
+            </h1>
+
+            <p>
+
+                Use SilentVoice AI to recognize American Sign Language
+                through image upload or live camera detection.
+
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero-card">
+
+        <div class="hero-content">
+
+            <div class="hero-icon">
+
+                <i data-lucide="scan-search"></i>
+
+            </div>
+
+            <h2>
+
+                Start AI Detection
+
+            </h2>
+
+            <p>
+
+                Upload an image or launch your webcam to detect
+                sign language in real time.
+
+            </p>
+
+            <a href="/detect"
+               class="hero-btn">
+
+                Launch Detection
+
+                <i data-lucide="arrow-right"></i>
+
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- ================= QUICK ACTIONS ================= -->
+
+    <section class="quick-actions">
+
+        <h2>
+
+            Quick Actions
+
+        </h2>
+
+        <div class="action-grid">
+
+            <!-- PROFILE -->
+
+            <a href="/profile-page"
+               class="action-card">
+
+                <div class="card-icon">
+
+                    <i data-lucide="user-round"></i>
+
+                </div>
+
+                <h3>
+
+                    Profile
+
+                </h3>
+
+                <p>
+
+                    View and manage your account information.
+
+                </p>
+
+                <span>
+
+                    Open
+
+                    <i data-lucide="arrow-right"></i>
+
+                </span>
+
+            </a>
+
+            <!-- HISTORY -->
+
+            <a href="/history"
+               class="action-card">
+
+                <div class="card-icon">
+
+                    <i data-lucide="history"></i>
+
+                </div>
+
+                <h3>
+
+                    History
+
+                </h3>
+
+                <p>
+
+                    View previous sign language detections.
+
+                </p>
+
+                <span>
+
+                    Open
+
+                    <i data-lucide="arrow-right"></i>
+
+                </span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+        <!-- ================= ABOUT ================= -->
+
+    <section class="about-section">
+
+        <div class="section-title">
+
+            <h2>
+
+                About SilentVoice AI
+
+            </h2>
+
+            <p>
+
+                SilentVoice AI bridges communication gaps by translating
+                American Sign Language into text using Computer Vision,
+                TensorFlow, and Deep Learning.
+
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- ================= SUPPORTED SIGNS ================= -->
+
+    <section class="signs-section">
+
+        <h2>
+
+            Supported Signs
+
+        </h2>
+
+        <p>
+
+            Currently trained to recognize the following ASL alphabet signs.
+
+        </p>
+
+        <div class="sign-grid">
+
+            <span>A</span>
+            <span>B</span>
+            <span>C</span>
+            <span>D</span>
+            <span>E</span>
+            <span>F</span>
+            <span>G</span>
+            <span>H</span>
+            <span>I</span>
+            <span>J</span>
+            <span>K</span>
+            <span>L</span>
+            <span>M</span>
+            <span>N</span>
+            <span>O</span>
+            <span>P</span>
+            <span>Q</span>
+            <span>R</span>
+            <span>S</span>
+            <span>T</span>
+            <span>U</span>
+            <span>V</span>
+            <span>W</span>
+            <span>X</span>
+            <span>Y</span>
+
+        </div>
+
+    </section>
+
+    <!-- ================= TECH STACK ================= -->
+
+    <section class="tech-section">
+
+        <h2>
+
+            Built With
+
+        </h2>
+
+        <div class="tech-grid">
+
+            <div class="tech-card">
+
+                <i data-lucide="brain"></i>
+
+                <span>TensorFlow</span>
+
+            </div>
+
+            <div class="tech-card">
+
+                <i data-lucide="server"></i>
+
+                <span>FastAPI</span>
+
+            </div>
+
+            <div class="tech-card">
+
+                <i data-lucide="database"></i>
+
+                <span>SQLite</span>
+
+            </div>
+
+            <div class="tech-card">
+
+                <i data-lucide="code"></i>
+
+                <span>Python</span>
+
+            </div>
+
+            <div class="tech-card">
+
+                <i data-lucide="layout"></i>
+
+                <span>HTML</span>
+
+            </div>
+
+            <div class="tech-card">
+
+                <i data-lucide="palette"></i>
+
+                <span>CSS</span>
+
+            </div>
+
+            <div class="tech-card">
+
+                <i data-lucide="file-code"></i>
+
+                <span>JavaScript</span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= CTA ================= -->
+
+    <section class="cta-section">
+
+        <div class="cta-card">
+
+            <h2>
+
+                Ready to Start?
+
+            </h2>
+
+            <p>
+
+                Launch SilentVoice AI and begin detecting sign language in
+                real time.
+
+            </p>
+
+            <a href="/detect"
+               class="hero-btn">
+
+                Start Detection
+
+                <i data-lucide="arrow-right"></i>
+
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
 
 <footer>
 
-    © 2026 SilentVoice AI • Built with ❤️
-    using Python & FastAPI
+    <div class="footer-logo">
+
+        
+
+        <span>SilentVoice AI</span>
+
+    </div>
+
+    <p>
+
+        Real-Time Sign Language Recognition using
+        Artificial Intelligence.
+
+    </p>
+
+    <small>
+
+        © 2026 SilentVoice AI. All Rights Reserved.
+
+    </small>
 
 </footer>
 
+<!-- ================= JAVASCRIPT ================= -->
+
+<script src="/js/index.js"></script>
+
+<script>
+
+    lucide.createIcons();
+
+</script>
 
 </body>
 

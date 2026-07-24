@@ -1,200 +1,501 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
+/* =======================================================
+   SilentVoice AI Authentication Theme
+======================================================= */
+
+:root{
+
+    --bg:#08111F;
+    --card:rgba(18,28,46,.85);
+
+    --primary:#4F8CFF;
+    --primary-hover:#6EA3FF;
+
+    --text:#ffffff;
+    --secondary:#A9B5D0;
+
+    --input:#101A2D;
+    --border:#26395F;
+
+    --success:#32D583;
+    --danger:#FF5C70;
+
+}
+
+/* =======================================================
+   Global
+======================================================= */
+
 *{
+
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
+    font-family:"Poppins",sans-serif;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
+
 }
 
 body{
 
     min-height:100vh;
+
     display:flex;
+
     justify-content:center;
-    align-items:center;
-    background:#eef4ff;
+
+    align-items:flex-start;
+
+    padding:60px 20px;
+
+    overflow-y:auto;
+
+    overflow-x:hidden;
+
+    background:
+    radial-gradient(circle at top left,#2962ff55,transparent 35%),
+    radial-gradient(circle at bottom right,#7758ff55,transparent 35%),
+    linear-gradient(135deg,#08111F,#0D1628);
+
+    color:var(--text);
+
+    position:relative;
+
 }
 
-/* ===========================
-Container
-=========================== */
+/* =======================================================
+   Background Glow
+======================================================= */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    top:-120px;
+
+    left:-120px;
+
+    width:350px;
+
+    height:350px;
+
+    border-radius:50%;
+
+    background:#3E8BFF55;
+
+    filter:blur(120px);
+
+    z-index:-2;
+
+}
+
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    bottom:-150px;
+
+    right:-120px;
+
+    width:380px;
+
+    height:380px;
+
+    border-radius:50%;
+
+    background:#6E4BFF44;
+
+    filter:blur(130px);
+
+    z-index:-2;
+
+}
+
+/* =======================================================
+   Glass Card
+======================================================= */
 
 .container{
 
     width:100%;
-    max-width:470px;
-    background:white;
-    border-radius:22px;
-    padding:45px;
-    box-shadow:0 20px 45px rgba(0,0,0,.12);
+
+    max-width:560px;
+
+    margin:30px auto;
+
+    background:var(--card);
+
+    backdrop-filter:blur(22px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:30px;
+
+    padding:60px;
+
+    box-shadow:
+    0 20px 40px rgba(0,0,0,.35),
+    0 0 40px rgba(79,140,255,.12);
+
+    animation:
+    fadeUp .8s ease,
+    floating 5s ease-in-out infinite;
 
 }
 
-/* ===========================
-Logo
-=========================== */
+/* =======================================================
+   Animations
+======================================================= */
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(40px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+@keyframes floating{
+
+0%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-8px);
+
+}
+
+100%{
+
+transform:translateY(0);
+
+}
+
+}
+
+/* =======================================================
+   Logo
+======================================================= */
 
 .logo{
 
     text-align:center;
-    margin-bottom:35px;
+
+    margin-bottom:40px;
 
 }
 
 .logo-icon{
 
-    width:80px;
-    height:80px;
+    width:95px;
+
+    height:95px;
 
     margin:auto;
-    margin-bottom:18px;
+
+    margin-bottom:25px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
 
     border-radius:50%;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    font-size:42px;
 
-    background:#2563eb;
+    background:linear-gradient(
+    135deg,
+    #4F8CFF,
+    #2D7DFF);
 
-    color:white;
-
-    font-size:40px;
-
-    box-shadow:0 10px 25px rgba(37,99,235,.35);
+    box-shadow:
+    0 0 35px rgba(79,140,255,.45);
 
 }
 
 .logo h1{
 
-    color:#1e3a8a;
-    font-size:36px;
+    font-size:52px;
+
     font-weight:700;
+
+    letter-spacing:-1px;
+
+    color:white;
 
 }
 
 .logo h3{
 
-    color:#2563eb;
-    margin-top:8px;
+    margin-top:14px;
+
+    font-size:24px;
+
+    color:var(--primary);
+
     font-weight:600;
-    font-size:18px;
 
 }
 
 .logo p{
 
-    margin-top:10px;
-    color:#64748b;
-    font-size:14px;
+    margin:18px auto 0;
+
+    max-width:420px;
+
+    color:var(--secondary);
+
+    font-size:17px;
+
+    line-height:1.8;
 
 }
 
-/* ===========================
-Message
-=========================== */
+/* =======================================================
+   Form
+======================================================= */
 
-#message{
+form{
 
-    margin-bottom:20px;
+    margin-top:25px;
 
 }
 
-/* ===========================
-Inputs
-=========================== */
+/* =======================================================
+   Input Fields
+======================================================= */
 
 .input-box{
 
-    margin-bottom:20px;
+    margin-bottom:24px;
 
 }
 
 .input-box label{
 
     display:block;
-    margin-bottom:8px;
+
+    margin-bottom:10px;
+
+    font-size:15px;
+
     font-weight:600;
-    color:#334155;
+
+    color:#E4ECFF;
 
 }
 
 .input-box input{
 
     width:100%;
-    padding:14px 16px;
 
-    border:1px solid #dbe4f0;
+    height:62px;
 
-    border-radius:12px;
+    background:var(--input);
 
-    outline:none;
+    border:1px solid var(--border);
 
-    font-size:15px;
+    border-radius:16px;
 
-    transition:.3s;
+    padding:0 20px;
+
+    font-size:16px;
+
+    color:white;
+
+    transition:.35s;
+
+}
+
+.input-box input::placeholder{
+
+    color:#7E8FB5;
 
 }
 
 .input-box input:focus{
 
-    border-color:#2563eb;
+    outline:none;
 
-    box-shadow:0 0 0 4px rgba(37,99,235,.12);
+    border-color:var(--primary);
+
+    box-shadow:
+
+    0 0 25px rgba(79,140,255,.30);
+
+    transform:scale(1.02);
 
 }
 
-/* ===========================
-Button
-=========================== */
+/* =======================================================
+   Password Field
+======================================================= */
 
-.btn{
+.password-wrapper{
+
+    position:relative;
 
     width:100%;
 
-    padding:15px;
+}
 
-    border:none;
+.password-wrapper input{
 
-    border-radius:12px;
+    padding-right:60px;
 
-    background:#2563eb;
+}
 
-    color:white;
+.toggle-password{
 
-    font-size:16px;
+    position:absolute;
 
-    font-weight:600;
+    top:50%;
+
+    right:20px;
+
+    transform:translateY(-50%);
+
+    color:#8FA3CE;
 
     cursor:pointer;
+
+    font-size:18px;
 
     transition:.3s;
 
 }
 
-.btn:hover{
+.toggle-password:hover{
 
-    background:#1d4ed8;
-
-    transform:translateY(-2px);
+    color:white;
 
 }
 
-/* ===========================
-Divider
-=========================== */
+/* =======================================================
+   Forgot Password
+======================================================= */
+
+.forgot{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    margin-top:-10px;
+
+    margin-bottom:24px;
+
+}
+
+.forgot a{
+
+    color:#9FB7FF;
+
+    text-decoration:none;
+
+    font-size:14px;
+
+}
+
+.forgot a:hover{
+
+    color:white;
+
+}
+
+/* =======================================================
+   Button
+======================================================= */
+
+.btn{
+
+    width:100%;
+
+    height:62px;
+
+    border:none;
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    color:white;
+
+    background:
+
+    linear-gradient(
+    135deg,
+    #4F8CFF,
+    #2D7DFF);
+
+    transition:.35s;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+
+    0 15px 35px rgba(79,140,255,.45);
+
+}
+
+.btn:active{
+
+    transform:scale(.98);
+
+}
+
+/* =======================================================
+   Divider
+======================================================= */
 
 .divider{
 
     display:flex;
+
     align-items:center;
 
-    margin:28px 0;
+    margin:32px 0;
 
 }
 
 .divider::before,
+
 .divider::after{
 
     content:"";
@@ -203,29 +504,31 @@ Divider
 
     height:1px;
 
-    background:#ddd;
+    background:#2D426D;
 
 }
 
 .divider span{
 
-    padding:0 15px;
+    padding:0 18px;
 
-    color:#94a3b8;
+    color:#94A3B8;
 
     font-size:14px;
 
 }
 
-/* ===========================
-Links
-=========================== */
+/* =======================================================
+   Links
+======================================================= */
 
 .link{
 
     text-align:center;
 
-    color:#475569;
+    margin-top:15px;
+
+    color:var(--secondary);
 
     font-size:15px;
 
@@ -233,54 +536,268 @@ Links
 
 .link a{
 
-    text-decoration:none;
-
-    color:#2563eb;
+    color:var(--primary);
 
     font-weight:600;
+
+    text-decoration:none;
+
+    transition:.3s;
 
 }
 
 .link a:hover{
 
-    text-decoration:underline;
+    color:white;
 
 }
 
-/* ===========================
-Alerts
-=========================== */
+/* =======================================================
+   Success / Error
+======================================================= */
 
 .success{
 
-    background:#16a34a;
-    color:white;
-    padding:14px;
-    border-radius:10px;
-    margin-bottom:18px;
+    background:rgba(50,213,131,.12);
+
+    border:1px solid var(--success);
+
+    color:var(--success);
+
+    padding:15px;
+
+    border-radius:14px;
+
+    margin-bottom:22px;
 
 }
 
 .error{
 
-    background:#dc2626;
-    color:white;
-    padding:14px;
-    border-radius:10px;
-    margin-bottom:18px;
+    background:rgba(255,92,112,.12);
+
+    border:1px solid var(--danger);
+
+    color:#FFB3BF;
+
+    padding:15px;
+
+    border-radius:14px;
+
+    margin-bottom:22px;
 
 }
 
-/* ===========================
-Responsive
-=========================== */
+/* =======================================================
+   Chrome Autofill Fix
+======================================================= */
 
-@media(max-width:600px){
+input:-webkit-autofill,
+
+input:-webkit-autofill:hover,
+
+input:-webkit-autofill:focus{
+
+    -webkit-box-shadow:
+
+    0 0 0 1000px #101A2D inset !important;
+
+    -webkit-text-fill-color:white !important;
+
+    transition:background-color 9999s;
+
+}
+
+/* =======================================================
+   Password Strength
+======================================================= */
+
+#strengthText,
+
+#matchText{
+
+    margin-top:10px;
+
+    font-size:14px;
+
+    font-weight:500;
+
+}
+
+/* =======================================================
+   Premium Scrollbar
+======================================================= */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#08111F;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#335BAA;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#4F8CFF;
+
+}
+
+/* =======================================================
+   Smooth Transitions
+======================================================= */
+
+*{
+
+    transition:
+    background .3s,
+    color .3s,
+    border-color .3s,
+    box-shadow .3s,
+    transform .3s;
+
+}
+
+/* =======================================================
+   Card Hover
+======================================================= */
+
+.container:hover{
+
+    box-shadow:
+    0 30px 70px rgba(0,0,0,.45),
+    0 0 60px rgba(79,140,255,.18);
+
+}
+
+/* =======================================================
+   Input Hover
+======================================================= */
+
+.input-box input:hover{
+
+    border-color:#4F8CFF88;
+
+}
+
+/* =======================================================
+   Button Loading State
+======================================================= */
+
+.btn:disabled{
+
+    opacity:.75;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+}
+
+/* =======================================================
+   Better Selection
+======================================================= */
+
+::selection{
+
+    background:#4F8CFF;
+
+    color:white;
+
+}
+
+/* =======================================================
+   Better Focus Outline
+======================================================= */
+
+button:focus,
+input:focus{
+
+    outline:none;
+
+}
+
+/* =======================================================
+   Small Screen
+======================================================= */
+
+@media(max-width:768px){
 
 .container{
 
-    width:92%;
-    padding:30px;
+    width:95%;
+
+    padding:35px 28px;
+
+    margin:20px auto;
+
+}
+
+.logo-icon{
+
+    width:80px;
+    height:80px;
+
+    font-size:36px;
+
+}
+
+.logo h1{
+
+    font-size:36px;
+
+}
+
+.logo h3{
+
+    font-size:20px;
+
+}
+
+.logo p{
+
+    font-size:15px;
+
+}
+
+.input-box input{
+
+    height:56px;
+
+    font-size:15px;
+
+}
+
+.btn{
+
+    height:56px;
+
+    font-size:17px;
+
+}
+
+}
+
+/* =======================================================
+   Extra Small Phones
+======================================================= */
+
+@media(max-width:420px){
+
+.container{
+
+    padding:28px 22px;
 
 }
 
@@ -290,77 +807,82 @@ Responsive
 
 }
 
+.logo h3{
+
+    font-size:18px;
+
+}
+
+.logo p{
+
+    font-size:14px;
+
+}
+
+}
+
+/* =======================================================
+   Nice Fade for Messages
+======================================================= */
+
+.success,
+.error{
+
+    animation:fadeMessage .35s ease;
+
+}
+
+@keyframes fadeMessage{
+
+from{
+
+    opacity:0;
+
+    transform:translateY(-10px);
+
+}
+
+to{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+}
+
+/* =======================================================
+   Logo Animation
+======================================================= */
+
 .logo-icon{
 
-    width:70px;
-    height:70px;
-
-    font-size:34px;
+    animation:pulseGlow 4s infinite ease-in-out;
 
 }
 
-}
+@keyframes pulseGlow{
 
-/* ===========================
-Home Page
-=========================== */
+0%{
 
-.home-card{
-
-    text-align:center;
+    box-shadow:
+    0 0 25px rgba(79,140,255,.35);
 
 }
 
-.features{
+50%{
 
-    margin:35px 0;
-
-    display:grid;
-
-    grid-template-columns:1fr;
-
-    gap:12px;
-
-    text-align:left;
-
-    color:#334155;
-
-    font-size:15px;
-
-    background:#f8fafc;
-
-    padding:20px;
-
-    border-radius:15px;
+    box-shadow:
+    0 0 45px rgba(79,140,255,.7);
 
 }
 
-.button-group{
+100%{
 
-    display:flex;
-
-    gap:15px;
-
-    margin-top:30px;
+    box-shadow:
+    0 0 25px rgba(79,140,255,.35);
 
 }
-
-.button-group a{
-
-    flex:1;
-
-    text-decoration:none;
-
-}
-
-.secondary-btn{
-
-    background:#10b981;
-
-}
-
-.secondary-btn:hover{
-
-    background:#059669;
 
 }
