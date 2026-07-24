@@ -298,7 +298,7 @@ async function startCamera(){
         startCameraBtn.disabled = false;
 
         startCameraBtn.innerHTML = `
-    <i data-lucide="square"></i>
+    
     Stop Camera
 `;
 
@@ -699,11 +699,10 @@ function resetCamera(){
     startCameraBtn.disabled = false;
 
     startCameraBtn.innerHTML = `
-        <i data-lucide="video"></i>
         Start Camera
     `;
 
-    lucide.createIcons();
+    
 
 }
 
