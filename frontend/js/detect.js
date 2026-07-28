@@ -819,8 +819,7 @@ async function detectHand(){
 
     if(!cameraStream) return;
 
-    if(cameraPreview.readyState < 2) return;
-
+    if(cameraPreview.readyState < 2) return; 
     if(mediapipeBusy) return;
 
     mediapipeBusy = true;

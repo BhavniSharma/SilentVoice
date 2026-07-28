@@ -1,7 +1,9 @@
+# Required packages: pip install fastapi uvicorn python-multipart pydantic tensorflow numpy pillow python-jose passlib
 from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+
 
 from models import User, LoginUser
 
@@ -129,6 +131,11 @@ app.mount(
 
 )
 
+
+# app.include_router(
+#     eye_router,
+#     prefix="/eyeblink"
+# )
 
 # =====================================================
 # Load CNN Model
@@ -285,7 +292,20 @@ def detect_page():
 
     )
 
+@app.get("/eyeblink")
+def eyeblink_page():
 
+    return FileResponse(
+
+        os.path.join(
+
+            FRONTEND_DIR,
+
+            "eyeblink.html"
+
+        )
+
+    )
 @app.get("/history")
 def history_page():
 
@@ -302,6 +322,7 @@ def history_page():
     )
 
 
+
 @app.get("/users-page")
 def users_page():
 
@@ -312,6 +333,21 @@ def users_page():
             FRONTEND_DIR,
 
             "users.html"
+
+        )
+
+    )
+
+@app.get("/modules")
+def modules_page():
+
+    return FileResponse(
+
+        os.path.join(
+
+            FRONTEND_DIR,
+
+            "modules.html"
 
         )
 

@@ -31,7 +31,7 @@ MAIN_FILE = os.path.join(
 
 HEALTH_URL = f"http://{HOST}:{PORT}/health"
 
-HOME_URL = f"http://{HOST}:{PORT}"
+HOME_URL = f"http://{HOST}:{PORT}/login"
 
 
 # ==========================================
@@ -43,7 +43,7 @@ print(r"""
 ╔══════════════════════════════════════════════╗
 ║                                              ║
 ║              SilentVoice AI                  ║
-║       Giving Every Gesture a Voice 🤟        ║
+║       Giving Every Gesture a Voice       ║
 ║                                              ║
 ╚══════════════════════════════════════════════╝
 

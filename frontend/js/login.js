@@ -52,7 +52,8 @@ loginForm.addEventListener("submit", async function (e) {
         JSON.stringify(data.user)
     );
 
-    window.location.href = "/";
+    
+window.location.href = "/modules";
 
 } else {
 

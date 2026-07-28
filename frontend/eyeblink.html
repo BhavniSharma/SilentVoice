@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Eye Blink Communication</title>
+
+    <link rel="stylesheet"
+          href="/css/eyeblink.css">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    
+
+</head>
+
+<body>
+
+<!-- =========================
+        NAVBAR
+========================== -->
+
+<nav>
+
+    <a href="/home"
+       class="logo">
+
+        EyeBlink<span>AI</span>
+
+    </a>
+
+    <a href="/dashboard"
+       id="dashboardBtn"
+       class="back-btn">
+
+        ← Dashboard
+
+    </a>
+
+</nav>
+
+<!-- =========================
+          MAIN
+========================== -->
+
+<main>
+
+<section class="detection-section">
+
+    <div class="hero">
+
+        <span class="tag">
+
+            AI Powered Detection
+
+        </span>
+
+        <h1>
+
+            Eye Blink Communication
+
+        </h1>
+
+        <p class="subtitle">
+
+            Communicate using eye blinks interpreted as Morse Code.
+EyeBlink AI detects your blinks, converts them into Morse signals,
+decodes them into text, and speaks them aloud in real time.
+
+        </p>
+
+    </div>
+
+<div class="dashboard-layout">
+    
+<div class="workspace-card">
+
+    <div class="workspace">
+
+        <div class="camera-box">
+
+            <div class="camera-container">
+
+                <video
+                    id="cameraPreview"
+                    autoplay
+                    playsinline>
+                </video>
+
+                <div id="cameraPlaceholder">
+
+                    <i data-lucide="eye"></i>
+
+                    <p>Click Start Camera</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <button
+            id="startCamera"
+            class="primary-btn">
+
+            <i data-lucide="video"></i>
+
+            Start Camera
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- =========================
+        RIGHT PANEL
+========================= -->
+
+<aside class="ai-panel" id="blinkPanel">
+
+    <div class="ai-header">
+
+        <div class="ai-icon">
+
+            <i data-lucide="eye"></i>
+
+        </div>
+
+        <div>
+
+            <h2>Eye Blink Analysis</h2>
+
+            <p>SilentVoice Morse Engine</p>
+
+        </div>
+
+    </div>
+
+    <!-- Eye Status -->
+
+    <div class="confidence-card">
+
+        <div class="confidence-top">
+
+            <span>Eye Status</span>
+
+            <span id="eyeStatus">
+
+                🟢 Eyes Open
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Current Blink -->
+
+    <div class="word-card">
+
+        <h3>Current Blink</h3>
+
+        <div
+            id="currentBlink"
+            class="word-display">
+
+            —
+
+        </div>
+
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Current Morse -->
+
+    <div class="word-card">
+
+        <h3>Current Morse</h3>
+
+        <div
+            id="currentMorse"
+            class="word-display">
+
+            —
+
+        </div>
+
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Decoded Letter -->
+
+    <div class="word-card">
+
+        <h3>Decoded Letter</h3>
+
+        <div
+            id="decodedLetter"
+            class="word-display">
+
+            —
+
+        </div>
+
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Sentence -->
+
+    <div class="word-card">
+
+        <h3>Current Sentence</h3>
+
+        <div
+            id="currentSentence"
+            class="word-display">
+
+            —
+
+        </div>
+
+    </div>
+
+    <!-- Buttons -->
+
+    <div class="action-buttons">
+
+        <button
+            id="speakBtn"
+            class="secondary-btn">
+
+            <i data-lucide="volume-2"></i>
+
+            Speak
+
+        </button>
+
+        <button
+            id="clearBtn"
+            class="danger-btn">
+
+            <i data-lucide="trash-2"></i>
+
+            Clear
+
+        </button>
+
+    </div>
+
+</aside>
+</div>
+
+    <!-- Loading -->
+
+    <div
+        id="loadingText"
+        class="loading-text">
+
+        <div class="loader"></div>
+
+        <span>
+
+            Detecting eye blinks...
+
+        </span>
+
+    </div>
+
+</section>
+
+</main>
+
+<script src="/js/eyeblink.js"></script>
+
+<script>
+
+    lucide.createIcons();
+
+</script>
+
+</body>
+
+</html>
