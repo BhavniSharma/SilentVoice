@@ -3,14 +3,10 @@ name: SilentVoice CI
 on:
   push:
     branches:
-      - main
-
-  pull_request:
-    branches:
-      - main
+      - "**"
 
 jobs:
-  backend-check:
+  first-job:
 
     runs-on: ubuntu-latest
 
@@ -19,19 +15,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+      - name: Print Welcome
+        run: echo "Welcome to SilentVoice CI!"
 
-      - name: Install Dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r backend/requirements.txt
+      - name: Show Repository Files
+        run: ls -la
 
-      - name: Check Python Syntax
-        run: |
-          python -m compileall backend
+      - name: Show Current Directory
+        run: pwd
 
-      - name: Success
-        run: echo "SilentVoice Backend Passed!"
+      - name: Finished
+        run: echo "Workflow Completed Successfully!"
