@@ -2,6 +2,10 @@
 // EyeBlink AI
 // ======================================================
 
+
+const API_URL = "http://127.0.0.1:8002/predict";
+
+
 const startCameraBtn = document.getElementById("startCamera");
 const cameraPreview = document.getElementById("cameraPreview");
 const cameraPlaceholder = document.getElementById("cameraPlaceholder");
@@ -153,19 +157,13 @@ async function sendFrame(){
 
         );
 
-        const response = await fetch(
+        const response = await fetch(API_URL, {
 
-            "/eyeblink/predict",
+    method: "POST",
 
-            {
+    body: formData
 
-                method:"POST",
-
-                body:formData
-
-            }
-
-        );
+});
 
         if(!response.ok){
 
