@@ -5,8 +5,12 @@ on:
     branches:
       - "**"
 
+  pull_request:
+    branches:
+      - "**"
+
 jobs:
-  first-job:
+  backend-check:
 
     runs-on: ubuntu-latest
 
@@ -15,14 +19,22 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Print Welcome
-        run: echo "Welcome to SilentVoice CI!"
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-      - name: Show Repository Files
-        run: ls -la
+      - name: Check Python Version
+        run: python --version
 
-      - name: Show Current Directory
-        run: pwd
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
 
-      - name: Finished
-        run: echo "Workflow Completed Successfully!"
+      - name: Install Backend Dependencies
+        run: python -m pip install -r backend/requirements.txt
+
+      - name: Check Backend Syntax
+        run: python -m compileall backend
+
+      - name: Success
+        run: echo "SilentVoice Backend Validation Passed!"
