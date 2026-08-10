@@ -2,9 +2,7 @@
 // EyeBlink AI
 // ======================================================
 
-
 const API_URL = "http://127.0.0.1:8002/predict";
-
 
 const startCameraBtn = document.getElementById("startCamera");
 const cameraPreview = document.getElementById("cameraPreview");
@@ -24,27 +22,35 @@ const clearBtn = document.getElementById("clearBtn");
 let stream = null;
 let predictInterval = null;
 
-loadingText.style.display = "none";
 
 // ======================================================
-// Start Camera
+// Initial State
+// ======================================================
+
+loadingText.style.display = "none";
+
+// Camera is OFF initially
+eyeStatus.innerHTML = "🔴 Eyes Closed";
+
+
+// ======================================================
+// Start / Stop Camera
 // ======================================================
 
 startCameraBtn.addEventListener("click", async () => {
 
-    if(stream){
+    // If camera is already running → stop it
+    if (stream) {
 
         stopCamera();
-        return;
 
+        return;
     }
 
-    try{
+    try {
 
         stream = await navigator.mediaDevices.getUserMedia({
-
-            video:true
-
+            video: true
         });
 
         cameraPreview.srcObject = stream;
@@ -55,33 +61,44 @@ startCameraBtn.addEventListener("click", async () => {
 
         startCameraBtn.innerHTML = "Stop Camera";
 
-        predictInterval = setInterval(sendFrame,300);
+        // Start sending frames
+        predictInterval = setInterval(sendFrame, 300);
 
     }
 
-    catch(error){
+    catch (error) {
 
-        console.error(error);
+        console.error("Camera Error:", error);
 
         alert("Unable to access camera.");
 
+        eyeStatus.innerHTML = "🔴 Eyes Closed";
     }
 
 });
+
 
 // ======================================================
 // Stop Camera
 // ======================================================
 
-function stopCamera(){
+function stopCamera() {
 
-    clearInterval(predictInterval);
+    // Stop prediction loop
+    if (predictInterval) {
 
-    predictInterval = null;
+        clearInterval(predictInterval);
 
-    if(stream){
+        predictInterval = null;
 
-        stream.getTracks().forEach(track=>track.stop());
+    }
+
+    // Stop camera tracks
+    if (stream) {
+
+        stream.getTracks().forEach(track => {
+            track.stop();
+        });
 
     }
 
@@ -95,34 +112,55 @@ function stopCamera(){
 
     startCameraBtn.innerHTML = "Start Camera";
 
+
+    // ==============================================
+    // Camera OFF → reset eye status
+    // ==============================================
+
+    eyeStatus.innerHTML = "🔴 Eyes Closed";
+
 }
+
 
 // ======================================================
 // Canvas → Blob
 // ======================================================
 
-async function canvasToBlob(canvas){
+async function canvasToBlob(canvas) {
 
-    return new Promise(resolve=>{
+    return new Promise(resolve => {
 
-        canvas.toBlob(resolve,"image/jpeg");
+        canvas.toBlob(
+            resolve,
+            "image/jpeg"
+        );
 
     });
 
 }
 
+
 // ======================================================
 // Send Frame To FastAPI
 // ======================================================
 
-async function sendFrame(){
+async function sendFrame() {
 
-    if(!stream) return;
+    if (!stream) return;
+
+    // Make sure video is ready
+    if (
+        cameraPreview.readyState < 2 ||
+        cameraPreview.videoWidth === 0
+    ) {
+        return;
+    }
 
     loadingText.style.display = "flex";
 
-    try{
+    try {
 
+        // Create canvas
         const canvas = document.createElement("canvas");
 
         canvas.width = cameraPreview.videoWidth;
@@ -131,67 +169,87 @@ async function sendFrame(){
 
         const ctx = canvas.getContext("2d");
 
+
+        // Draw current camera frame
         ctx.drawImage(
-
             cameraPreview,
-
             0,
             0,
-
             canvas.width,
             canvas.height
-
         );
 
+
+        // Convert to image
         const blob = await canvasToBlob(canvas);
+
 
         const formData = new FormData();
 
         formData.append(
-
             "file",
-
             blob,
-
             "frame.jpg"
-
         );
 
-        const response = await fetch(API_URL, {
 
-    method: "POST",
+        // Send to FastAPI
+        const response = await fetch(
+            API_URL,
+            {
+                method: "POST",
+                body: formData
+            }
+        );
 
-    body: formData
 
-});
+        if (!response.ok) {
 
-        if(!response.ok){
-
-            throw new Error("Prediction failed");
+            throw new Error(
+                "Prediction failed"
+            );
 
         }
 
+
         const data = await response.json();
 
-        eyeStatus.innerHTML = data.eye_status;
 
-        currentBlink.innerHTML = data.current_blink;
+        // ==============================================
+        // Update UI
+        // ==============================================
 
-        currentMorse.innerHTML = data.current_morse;
+        eyeStatus.innerHTML =
+            data.eye_status || "🔴 Eyes Closed";
 
-        decodedLetter.innerHTML = data.decoded_letter;
 
-        currentSentence.innerHTML = data.current_sentence;
+        currentBlink.innerHTML =
+            data.current_blink || "—";
+
+
+        currentMorse.innerHTML =
+            data.current_morse || "—";
+
+
+        decodedLetter.innerHTML =
+            data.decoded_letter || "—";
+
+
+        currentSentence.innerHTML =
+            data.current_sentence || "—";
 
     }
 
-    catch(error){
+    catch (error) {
 
-        console.error(error);
+        console.error(
+            "Prediction Error:",
+            error
+        );
 
     }
 
-    finally{
+    finally {
 
         loadingText.style.display = "none";
 
@@ -199,40 +257,105 @@ async function sendFrame(){
 
 }
 
+
 // ======================================================
 // Speak
 // ======================================================
 
-speakBtn.addEventListener("click",()=>{
+speakBtn.addEventListener(
+    "click",
+    () => {
 
-    if(currentSentence.innerText==="—") return;
+        const sentence =
+            currentSentence.innerText.trim();
 
-    speechSynthesis.cancel();
 
-    speechSynthesis.speak(
+        // Nothing to speak
+        if (
+            !sentence ||
+            sentence === "—"
+        ) {
+            return;
+        }
 
-        new SpeechSynthesisUtterance(
 
-            currentSentence.innerText
+        // Stop previous speech
+        speechSynthesis.cancel();
 
-        )
 
-    );
+        // Speak current sentence
+        const speech =
+            new SpeechSynthesisUtterance(
+                sentence
+            );
 
-});
+
+        speechSynthesis.speak(
+            speech
+        );
+
+    }
+);
+
 
 // ======================================================
 // Clear
 // ======================================================
 
-clearBtn.addEventListener("click",()=>{
+clearBtn.addEventListener(
+    "click",
+    async () => {
 
-    currentBlink.innerHTML="—";
+        // Stop speech
+        speechSynthesis.cancel();
 
-    currentMorse.innerHTML="—";
 
-    decodedLetter.innerHTML="—";
+        // Reset frontend
+        currentBlink.innerHTML = "—";
 
-    currentSentence.innerHTML="—";
+        currentMorse.innerHTML = "—";
 
-});
+        decodedLetter.innerHTML = "—";
+
+        currentSentence.innerHTML = "—";
+
+
+        // Keep camera status correct
+        if (stream) {
+
+            // Camera is ON
+            // Backend will update eye status
+            // on the next frame.
+
+        }
+        else {
+
+            // Camera is OFF
+            eyeStatus.innerHTML =
+                "🔴 Eyes Closed";
+
+        }
+
+
+        // Reset backend Morse state
+        try {
+
+            await fetch(
+                "http://127.0.0.1:8002/clear",
+                {
+                    method: "POST"
+                }
+            );
+
+        }
+
+        catch (error) {
+
+            console.log(
+                "Backend clear endpoint not available."
+            );
+
+        }
+
+    }
+);

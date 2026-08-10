@@ -6,28 +6,49 @@
 const API_URL = "http://127.0.0.1:8001/predict";
 const FRAME_SIZE = 260;
 
+
 // ==========================================================
 // UPLOAD ELEMENTS
 // ==========================================================
 
 const uploadBox = document.getElementById("uploadBox");
-const imageInput = document.getElementById("imageInput");
-const previewImage = document.getElementById("previewImage");
-const uploadContent = document.getElementById("uploadContent");
-const detectButton = document.getElementById("detectButton");
+
+const imageInput =
+document.getElementById("imageInput");
+
+const previewImage =
+document.getElementById("previewImage");
+
+const uploadContent =
+document.getElementById("uploadContent");
+
+const detectButton =
+document.getElementById("detectButton");
+
 
 // ==========================================================
 // RESULT ELEMENTS
 // ==========================================================
 
-const loadingText = document.getElementById("loadingText");
-const resultCard = document.getElementById("resultCard");
+const loadingText =
+document.getElementById("loadingText");
 
-const prediction = document.getElementById("prediction");
-const confidence = document.getElementById("confidence");
-const confidenceFill = document.getElementById("confidenceFill");
+const resultCard =
+document.getElementById("resultCard");
 
-// ===== NEW UI =====
+const prediction =
+document.getElementById("prediction");
+
+const confidence =
+document.getElementById("confidence");
+
+const confidenceFill =
+document.getElementById("confidenceFill");
+
+
+// ==========================================================
+// HISTORY / WORD UI
+// ==========================================================
 
 const historyContainer =
 document.getElementById("historyContainer");
@@ -40,6 +61,7 @@ document.getElementById("speakBtn");
 
 const clearBtn =
 document.getElementById("clearBtn");
+
 
 // ==========================================================
 // CAMERA ELEMENTS
@@ -75,6 +97,7 @@ document.getElementById("captureCanvas");
 const handStatus =
 document.getElementById("handStatus");
 
+
 // ==========================================================
 // VARIABLES
 // ==========================================================
@@ -93,6 +116,7 @@ let lastLetter = "";
 
 const MAX_HISTORY = 10;
 
+
 // ==========================================================
 // INITIAL UI
 // ==========================================================
@@ -109,6 +133,7 @@ uploadTab.classList.add("active");
 
 cameraTab.classList.remove("active");
 
+
 // ==========================================================
 // IMAGE UPLOAD
 // ==========================================================
@@ -119,16 +144,19 @@ uploadBox.addEventListener("click", () => {
 
 });
 
+
 imageInput.addEventListener("change", () => {
 
     const file = imageInput.files[0];
 
     predictionHistory = [];
-lastLetter = "";
+
+    lastLetter = "";
 
     if (!file) return;
 
-    previewImage.src = URL.createObjectURL(file);
+    previewImage.src =
+        URL.createObjectURL(file);
 
     previewImage.style.display = "block";
 
@@ -143,6 +171,7 @@ lastLetter = "";
     confidenceFill.style.width = "0%";
 
 });
+
 
 // ==========================================================
 // IMAGE DETECT
@@ -160,6 +189,7 @@ detectButton.addEventListener("click", async () => {
 
     }
 
+
     detectButton.disabled = true;
 
     detectButton.innerHTML = "Detecting...";
@@ -168,33 +198,39 @@ detectButton.addEventListener("click", async () => {
 
     resultCard.style.display = "none";
 
-    try{
+
+    try {
 
         const formData = new FormData();
 
         formData.append("file", file);
 
-        const response = await fetch(API_URL,{
 
-            method:"POST",
+        const response = await fetch(API_URL, {
 
-            body:formData
+            method: "POST",
+
+            body: formData
 
         });
 
-        if(!response.ok){
+
+        if (!response.ok) {
 
             throw new Error("Prediction Failed");
 
         }
 
-        const data = await response.json();
 
-        updatePrediction(data,true);
+        const data =
+            await response.json();
+
+        updatePrediction(data, true);
 
     }
 
-    catch(error){
+
+    catch (error) {
 
         console.error(error);
 
@@ -202,7 +238,8 @@ detectButton.addEventListener("click", async () => {
 
     }
 
-    finally{
+
+    finally {
 
         loadingText.style.display = "none";
 
@@ -214,6 +251,7 @@ detectButton.addEventListener("click", async () => {
 
 });
 
+
 // ==========================================================
 // TAB SWITCHING
 // ==========================================================
@@ -223,36 +261,43 @@ uploadTab.addEventListener("click", () => {
     stopCamera();
 
     uploadTab.classList.add("active");
+
     cameraTab.classList.remove("active");
 
     uploadWorkspace.classList.remove("hidden");
+
     cameraWorkspace.classList.add("hidden");
 
 });
 
+
 cameraTab.addEventListener("click", () => {
 
     uploadTab.classList.remove("active");
+
     cameraTab.classList.add("active");
 
     uploadWorkspace.classList.add("hidden");
+
     cameraWorkspace.classList.remove("hidden");
 
 });
+
 
 // ==========================================================
 // DASHBOARD BUTTON
 // ==========================================================
 
-if(dashboardBtn){
+if (dashboardBtn) {
 
-    dashboardBtn.addEventListener("click",()=>{
+    dashboardBtn.addEventListener("click", () => {
 
         stopCamera();
 
     });
 
 }
+
 
 // ==========================================================
 // START CAMERA
@@ -264,7 +309,9 @@ startCameraBtn.addEventListener("click", () => {
 
         stopCamera();
 
-    } else {
+    }
+
+    else {
 
         startCamera();
 
@@ -272,22 +319,28 @@ startCameraBtn.addEventListener("click", () => {
 
 });
 
-async function startCamera(){
+
+async function startCamera() {
 
     stopCamera();
 
-    try{
+
+    try {
 
         cameraStream =
-        await navigator.mediaDevices.getUserMedia({
+            await navigator.mediaDevices.getUserMedia({
 
-            video:{
-                facingMode:"user"
-            }
+                video: {
 
-        });
+                    facingMode: "user"
 
-        cameraPreview.srcObject = cameraStream;
+                }
+
+            });
+
+
+        cameraPreview.srcObject =
+            cameraStream;
 
         await cameraPreview.play();
 
@@ -297,19 +350,24 @@ async function startCamera(){
 
         startCameraBtn.disabled = false;
 
+
         startCameraBtn.innerHTML = `
-    
-    Stop Camera
-`;
+
+            Stop Camera
+
+        `;
+
 
         lucide.createIcons();
 
+
         predictionInterval =
-        setInterval(captureAndPredict,700);
+            setInterval(captureAndPredict, 700);
 
     }
 
-    catch(error){
+
+    catch (error) {
 
         console.error(error);
 
@@ -319,58 +377,81 @@ async function startCamera(){
 
 }
 
+
 // ==========================================================
 // CANVAS TO BLOB
 // ==========================================================
 
-function canvasToBlob(canvas){
+function canvasToBlob(canvas) {
 
-    return new Promise(resolve=>{
+    return new Promise(resolve => {
 
-        canvas.toBlob(resolve,"image/jpeg");
+        canvas.toBlob(
+            resolve,
+            "image/jpeg"
+        );
 
     });
 
 }
 
+
 // ==========================================================
 // LIVE CAMERA PREDICTION
 // ==========================================================
 
-async function captureAndPredict(){
+async function captureAndPredict() {
 
-    if(!cameraStream) return;
+    if (!cameraStream) return;
 
-    if(isPredicting) return;
+    if (isPredicting) return;
 
-    if(cameraPreview.videoWidth===0) return;
+    if (cameraPreview.videoWidth === 0) return;
 
-    if(!handDetected) return;
+    if (!handDetected) return;
+
 
     isPredicting = true;
 
     loadingText.style.display = "flex";
 
-    try{
 
-        captureCanvas.width = FRAME_SIZE;
+    try {
 
-        captureCanvas.height = FRAME_SIZE;
+        captureCanvas.width =
+            FRAME_SIZE;
+
+        captureCanvas.height =
+            FRAME_SIZE;
+
 
         const ctx =
-        captureCanvas.getContext("2d");
+            captureCanvas.getContext("2d");
 
-        ctx.setTransform(1,0,0,1,0,0);
 
-        ctx.translate(FRAME_SIZE,0);
+        ctx.setTransform(
+            1, 0, 0, 1, 0, 0
+        );
 
-        ctx.scale(-1,1);
+
+        ctx.translate(
+            FRAME_SIZE,
+            0
+        );
+
+
+        ctx.scale(-1, 1);
+
 
         const sx =
-        (cameraPreview.videoWidth-FRAME_SIZE)/2;
+            (cameraPreview.videoWidth -
+                FRAME_SIZE) / 2;
+
 
         const sy =
-        (cameraPreview.videoHeight-FRAME_SIZE)/2;
+            (cameraPreview.videoHeight -
+                FRAME_SIZE) / 2;
+
 
         ctx.drawImage(
 
@@ -390,11 +471,16 @@ async function captureAndPredict(){
 
         );
 
+
         const blob =
-        await canvasToBlob(captureCanvas);
+            await canvasToBlob(
+                captureCanvas
+            );
+
 
         const formData =
-        new FormData();
+            new FormData();
+
 
         formData.append(
 
@@ -406,35 +492,46 @@ async function captureAndPredict(){
 
         );
 
+
         const response =
-        await fetch(API_URL,{
+            await fetch(API_URL, {
 
-            method:"POST",
+                method: "POST",
 
-            body:formData
+                body: formData
 
-        });
+            });
 
-        if(!response.ok){
 
-            throw new Error("Prediction Failed");
+        if (!response.ok) {
+
+            throw new Error(
+                "Prediction Failed"
+            );
 
         }
 
-        const data =
-        await response.json();
 
-        updatePrediction(data,true);
+        const data =
+            await response.json();
+
+
+        updatePrediction(
+            data,
+            true
+        );
 
     }
 
-    catch(error){
+
+    catch (error) {
 
         console.error(error);
 
     }
 
-    finally{
+
+    finally {
 
         loadingText.style.display = "none";
 
@@ -444,107 +541,164 @@ async function captureAndPredict(){
 
 }
 
+
 // ==========================================================
 // PREDICTION HISTORY
 // ==========================================================
 
-function getStablePrediction(newPrediction){
+function getStablePrediction(newPrediction) {
 
-    predictionHistory.push(newPrediction);
+    predictionHistory.push(
+        newPrediction
+    );
 
-    if(predictionHistory.length > MAX_HISTORY){
+
+    if (
+        predictionHistory.length >
+        MAX_HISTORY
+    ) {
 
         predictionHistory.shift();
 
     }
 
+
     const count = {};
 
-    predictionHistory.forEach(letter=>{
 
-        count[letter] = (count[letter] || 0) + 1;
+    predictionHistory.forEach(letter => {
+
+        count[letter] =
+            (count[letter] || 0) + 1;
 
     });
 
-    let bestLetter = newPrediction;
+
+    let bestLetter =
+        newPrediction;
 
     let bestCount = 0;
 
-    for(const letter in count){
 
-        if(count[letter] > bestCount){
+    for (const letter in count) {
 
-            bestCount = count[letter];
+        if (
+            count[letter] >
+            bestCount
+        ) {
 
-            bestLetter = letter;
+            bestCount =
+                count[letter];
+
+            bestLetter =
+                letter;
 
         }
 
     }
 
+
     return bestLetter;
 
 }
+
 
 // ==========================================================
 // HISTORY UI
 // ==========================================================
 
-function addHistory(letter){
+function addHistory(letter) {
 
-    const item = document.createElement("div");
+    // Remove "No predictions yet"
+    // as soon as the first prediction arrives.
 
-    item.className = "history-item";
+    const emptyText =
+        historyContainer.querySelector(
+            ".empty-text"
+        );
+
+
+    if (emptyText) {
+
+        emptyText.remove();
+
+    }
+
+
+    const item =
+        document.createElement("div");
+
+
+    item.className =
+        "history-item";
+
 
     item.innerHTML = `
 
         <span>${letter}</span>
 
-        <small>${new Date().toLocaleTimeString()}</small>
+        <small>
+            ${new Date().toLocaleTimeString()}
+        </small>
 
     `;
 
+
     historyContainer.prepend(item);
 
-    while(historyContainer.children.length > 8){
 
-        historyContainer.removeChild(historyContainer.lastChild);
+    while (
+        historyContainer.children.length > 8
+    ) {
+
+        historyContainer.removeChild(
+            historyContainer.lastChild
+        );
 
     }
 
 }
 
+
 // ==========================================================
 // WORD BUILDER
 // ==========================================================
 
-function appendLetter(letter){
+function appendLetter(letter) {
 
-    if(letter === lastLetter) return;
+    if (letter === lastLetter) return;
 
     lastLetter = letter;
 
     detectedWord += letter;
 
-    currentWord.textContent = detectedWord;
+    currentWord.textContent =
+        detectedWord;
 
 }
+
 
 // ==========================================================
 // SPEAK
 // ==========================================================
 
-speakBtn.addEventListener("click",()=>{
+speakBtn.addEventListener("click", () => {
 
-    if(detectedWord.length===0) return;
+    if (detectedWord.length === 0) return;
 
-    const speech = new SpeechSynthesisUtterance(detectedWord);
+
+    const speech =
+        new SpeechSynthesisUtterance(
+            detectedWord
+        );
+
 
     speech.rate = 0.9;
 
     speech.pitch = 1;
 
     speech.lang = "en-US";
+
 
     speechSynthesis.cancel();
 
@@ -556,58 +710,95 @@ speakBtn.addEventListener("click",()=>{
 // CLEAR WORD
 // ==========================================================
 
-clearBtn.addEventListener("click",()=>{
+clearBtn.addEventListener("click", () => {
 
-    detectedWord="";
+    detectedWord = "";
 
-    lastLetter="";
+    lastLetter = "";
 
-    currentWord.textContent="";
+    predictionHistory = [];
+
+    currentWord.textContent = "";
+
+    // Clear prediction display
+    prediction.textContent = "-";
+
+    confidence.textContent = "-";
+
+    confidenceFill.style.width = "0%";
+
+    // Clear history completely
+    historyContainer.innerHTML = `
+        <p class="empty-text">
+            No predictions yet
+        </p>
+    `;
 
 });
+
 
 // ==========================================================
 // UPDATE RESULT CARD
 // ==========================================================
 
-function updatePrediction(data,isUpload=false){
+function updatePrediction(data, isUpload = false) {
 
-    const stablePrediction = isUpload
-    ? data.prediction
-    : getStablePrediction(data.prediction);
+    const stablePrediction =
+        isUpload
+            ? data.prediction
+            : getStablePrediction(data.prediction);
+
+
     const confidenceValue =
-    Math.round(data.confidence);
+        Math.round(data.confidence);
 
-    resultCard.style.display="block";
+
+    resultCard.style.display = "block";
+
 
     prediction.textContent =
-    stablePrediction;
+        stablePrediction;
+
 
     confidence.textContent =
-    `${confidenceValue}%`;
+        `${confidenceValue}%`;
+
 
     confidenceFill.style.width =
-    `${confidenceValue}%`;
+        `${confidenceValue}%`;
 
-    if(confidenceValue>=90){
 
-        confidenceFill.style.background="#22c55e";
+    // ======================================================
+    // CONFIDENCE COLOR
+    // ======================================================
 
-    }
+    if (confidenceValue >= 90) {
 
-    else if(confidenceValue>=70){
-
-        confidenceFill.style.background="#f59e0b";
-
-    }
-
-    else{
-
-        confidenceFill.style.background="#ef4444";
+        confidenceFill.style.background =
+            "#22c55e";
 
     }
 
-    if(confidenceValue>=80){
+    else if (confidenceValue >= 70) {
+
+        confidenceFill.style.background =
+            "#f59e0b";
+
+    }
+
+    else {
+
+        confidenceFill.style.background =
+            "#ef4444";
+
+    }
+
+
+    // ======================================================
+    // ADD ONLY GOOD PREDICTIONS
+    // ======================================================
+
+    if (confidenceValue >= 80) {
 
         appendLetter(stablePrediction);
 
@@ -615,31 +806,30 @@ function updatePrediction(data,isUpload=false){
 
     }
 
+
+    // ======================================================
+    // PREDICTION ANIMATION
+    // ======================================================
+
     prediction.animate(
 
         [
 
             {
-
-                transform:"scale(.8)",
-
-                opacity:.5
-
+                transform: "scale(.8)",
+                opacity: .5
             },
 
             {
-
-                transform:"scale(1)",
-
-                opacity:1
-
+                transform: "scale(1)",
+                opacity: 1
             }
 
         ],
 
         {
 
-            duration:250
+            duration: 250
 
         }
 
@@ -647,24 +837,36 @@ function updatePrediction(data,isUpload=false){
 
 }
 
+
 // ==========================================================
 // RESET DETECTION UI
 // ==========================================================
 
-function resetDetectionUI(){
+function resetDetectionUI() {
 
-    loadingText.style.display = "none";
+    loadingText.style.display =
+        "none";
 
-    resultCard.style.display = "none";
 
-    prediction.textContent = "-";
+    resultCard.style.display =
+        "none";
 
-    confidence.textContent = "-";
 
-    confidenceFill.style.width = "0%";
+    prediction.textContent =
+        "-";
+
+
+    confidence.textContent =
+        "-";
+
+
+    confidenceFill.style.width =
+        "0%";
+
 
     confidenceFill.style.background =
-    "linear-gradient(90deg,#2563eb,#60a5fa)";
+        "linear-gradient(90deg,#2563eb,#60a5fa)";
+
 
     predictionHistory = [];
 
@@ -672,81 +874,114 @@ function resetDetectionUI(){
 
     lastLetter = "";
 
-    currentWord.textContent = "";
+
+    currentWord.textContent =
+        "";
+
+
+    // Reset history
 
     historyContainer.innerHTML = `
+
         <p class="empty-text">
             No predictions yet
         </p>
+
     `;
 
 }
+
 
 // ==========================================================
 // RESET CAMERA
 // ==========================================================
 
-function resetCamera(){
+function resetCamera() {
 
     cameraPreview.pause();
 
     cameraPreview.srcObject = null;
 
-    cameraPreview.style.display = "none";
+    cameraPreview.style.display =
+        "none";
 
-    cameraPlaceholder.style.display = "flex";
 
-    startCameraBtn.disabled = false;
+    cameraPlaceholder.style.display =
+        "flex";
+
+
+    startCameraBtn.disabled =
+        false;
+
 
     startCameraBtn.innerHTML = `
         Start Camera
     `;
 
-    
-
 }
+
 
 // ==========================================================
 // STOP CAMERA
 // ==========================================================
 
-function stopCamera(){
+function stopCamera() {
 
-    if(predictionInterval){
+    // Stop prediction loop
 
-        clearInterval(predictionInterval);
+    if (predictionInterval) {
+
+        clearInterval(
+            predictionInterval
+        );
 
         predictionInterval = null;
 
     }
 
+
     isPredicting = false;
 
-    if(cameraStream){
 
-        cameraStream.getTracks().forEach(track=>{
+    // Stop camera tracks
 
-            track.stop();
+    if (cameraStream) {
 
-        });
+        cameraStream
+            .getTracks()
+            .forEach(track => {
+
+                track.stop();
+
+            });
+
 
         cameraStream = null;
 
     }
 
+
     resetCamera();
 
     resetDetectionUI();
 
-handDetected = false;
 
-handStatus.innerHTML = "🔴 No Hand Detected";
+    handDetected = false;
 
-handStatus.style.background = "#fee2e2";
 
-handStatus.style.color = "#991b1b";
+    handStatus.innerHTML =
+        "🔴 No Hand Detected";
+
+
+    handStatus.style.background =
+        "#fee2e2";
+
+
+    handStatus.style.color =
+        "#991b1b";
 
 }
+
 
 // ==========================================================
 // MEDIAPIPE
@@ -754,77 +989,108 @@ handStatus.style.color = "#991b1b";
 
 let handDetected = false;
 
-const hands = new Hands({
 
-    locateFile:(file)=>{
+const hands =
+    new Hands({
 
-        return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+        locateFile: (file) => {
 
-    }
+            return `
+                https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}
+            `;
 
-});
+        }
+
+    });
+
 
 hands.setOptions({
 
-    maxNumHands:1,
+    maxNumHands: 1,
 
-    modelComplexity:1,
+    modelComplexity: 1,
 
-    minDetectionConfidence:.7,
+    minDetectionConfidence: .7,
 
-    minTrackingConfidence:.6
+    minTrackingConfidence: .6
 
 });
 
-hands.onResults(results=>{
 
-    if(results.multiHandLandmarks &&
-        results.multiHandLandmarks.length>0){
+// ==========================================================
+// MEDIAPIPE RESULTS
+// ==========================================================
+
+hands.onResults(results => {
+
+    if (
+
+        results.multiHandLandmarks &&
+
+        results.multiHandLandmarks.length > 0
+
+    ) {
 
         handDetected = true;
 
+
         handStatus.innerHTML =
-        "🟢 Hand Detected";
+            "🟢 Hand Detected";
+
 
         handStatus.style.background =
-        "#d1fae5";
+            "#d1fae5";
+
 
         handStatus.style.color =
-        "#065f46";
+            "#065f46";
 
     }
 
-    else{
+
+    else {
 
         handDetected = false;
 
+
         handStatus.innerHTML =
-        "🔴 No Hand Detected";
+            "🔴 No Hand Detected";
+
 
         handStatus.style.background =
-        "#fee2e2";
+            "#fee2e2";
+
 
         handStatus.style.color =
-        "#991b1b";
+            "#991b1b";
 
     }
 
 });
+
 
 // ==========================================================
 // RUN MEDIAPIPE
 // ==========================================================
+
 let mediapipeBusy = false;
-async function detectHand(){
 
-    if(!cameraStream) return;
 
-    if(cameraPreview.readyState < 2) return; 
-    if(mediapipeBusy) return;
+async function detectHand() {
+
+    if (!cameraStream) return;
+
+    if (cameraPreview.readyState < 2)
+        return;
+
+    if (mediapipeBusy)
+        return;
+
 
     mediapipeBusy = true;
 
-    try{
+
+    try {
 
         await hands.send({
 
@@ -834,13 +1100,15 @@ async function detectHand(){
 
     }
 
-    catch(error){
+
+    catch (error) {
 
         console.error(error);
 
     }
 
-    finally{
+
+    finally {
 
         mediapipeBusy = false;
 
@@ -848,7 +1116,12 @@ async function detectHand(){
 
 }
 
-setInterval(detectHand,200);
+
+setInterval(
+    detectHand,
+    200
+);
+
 
 // ==========================================================
 // PAGE EVENTS
@@ -862,6 +1135,7 @@ window.addEventListener(
 
 );
 
+
 window.addEventListener(
 
     "pagehide",
@@ -870,13 +1144,14 @@ window.addEventListener(
 
 );
 
+
 document.addEventListener(
 
     "visibilitychange",
 
-    ()=>{
+    () => {
 
-        if(document.hidden){
+        if (document.hidden) {
 
             stopCamera();
 
@@ -886,6 +1161,7 @@ document.addEventListener(
 
 );
 
+
 // ==========================================================
 // CAMERA ERROR
 // ==========================================================
@@ -894,15 +1170,18 @@ cameraPreview.addEventListener(
 
     "error",
 
-    ()=>{
+    () => {
 
-        console.error("Camera Error");
+        console.error(
+            "Camera Error"
+        );
 
         stopCamera();
 
     }
 
 );
+
 
 // ==========================================================
 // PREVENT DOUBLE CLICK
@@ -912,7 +1191,7 @@ startCameraBtn.addEventListener(
 
     "dblclick",
 
-    e=>{
+    e => {
 
         e.preventDefault();
 
@@ -920,12 +1199,15 @@ startCameraBtn.addEventListener(
 
 );
 
+
 // ==========================================================
 // INITIAL HISTORY
 // ==========================================================
 
 historyContainer.innerHTML = `
+
     <p class="empty-text">
         No predictions yet
     </p>
+
 `;

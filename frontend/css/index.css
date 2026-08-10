@@ -835,3 +835,59 @@ footer small{
     }
 
 }
+
+
+/* ===============================
+   Mode Selection
+================================*/
+
+.mode-selection{
+    display:flex;
+    justify-content:center;
+    align-items:stretch;
+    gap:40px;
+    margin:60px 0;
+    flex-wrap:wrap;
+}
+
+.mode-card{
+    width:420px;
+    min-height:340px;
+    background:#111c2f;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:24px;
+    padding:45px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    transition:.3s;
+}
+
+.mode-card:hover{
+    transform:translateY(-8px);
+    border-color:#3b82f6;
+    box-shadow:0 20px 45px rgba(0,0,0,.35);
+}
+
+.mode-icon{
+    font-size:70px;
+    margin-bottom:20px;
+}
+
+.mode-card h2{
+    color:white;
+    font-size:36px;
+    margin-bottom:20px;
+}
+
+.mode-card p{
+    color:#9ca3af;
+    margin-bottom:35px;
+    line-height:1.8;
+}
+
+.mode-card .hero-btn{
+    margin-top:auto;
+}

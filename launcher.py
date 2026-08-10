@@ -3,21 +3,32 @@ import sys
 import time
 import socket
 import subprocess
-import urllib.request
 import webbrowser
 
+
 # ==========================================
-# SilentVoice AI Launcher v3
+# SilentVoice AI Launcher
 # ==========================================
 
 HOST = "127.0.0.1"
-PORT = 8001
+
+MAIN_PORT = 8001
+EYE_PORT = 8002
+
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-BACKEND_DIR = os.path.join(BASE_DIR, "backend")
 
-PYTHON_EXE = os.path.join(
+# ==========================================
+# Main Backend
+# ==========================================
+
+BACKEND_DIR = os.path.join(
+    BASE_DIR,
+    "backend"
+)
+
+MAIN_PYTHON = os.path.join(
     BASE_DIR,
     ".mlvenv",
     "Scripts",
@@ -29,41 +40,47 @@ MAIN_FILE = os.path.join(
     "main.py"
 )
 
-HEALTH_URL = f"http://{HOST}:{PORT}/health"
 
-HOME_URL = f"http://{HOST}:{PORT}/login"
+# ==========================================
+# Eye Blink Backend
+# ==========================================
+
+EYE_BACKEND_DIR = os.path.join(
+    BACKEND_DIR,
+    "eye_backend"
+)
+
+EYE_PYTHON = os.path.join(
+    EYE_BACKEND_DIR,
+    ".venv",
+    "Scripts",
+    "python.exe"
+)
+
+EYE_MAIN = os.path.join(
+    EYE_BACKEND_DIR,
+    "main.py"
+)
 
 
 # ==========================================
-# Banner
+# Website
 # ==========================================
 
-print(r"""
-
-╔══════════════════════════════════════════════╗
-║                                              ║
-║              SilentVoice AI                  ║
-║       Giving Every Gesture a Voice       ║
-║                                              ║
-╚══════════════════════════════════════════════╝
-
-""")
+HOME_URL = f"http://{HOST}:{MAIN_PORT}/login"
 
 
 # ==========================================
-# Check Server
+# Helper Function
 # ==========================================
 
-def server_running():
+def port_running(port):
 
     try:
 
         with socket.create_connection(
-
-            (HOST, PORT),
-
+            (HOST, port),
             timeout=1
-
         ):
 
             return True
@@ -74,97 +91,211 @@ def server_running():
 
 
 # ==========================================
-# Check Environment
+# Project Checks
 # ==========================================
 
-print("Checking Project...\n")
+print()
+print("===================================")
+print("       SilentVoice AI Launcher")
+print("===================================")
+print()
 
-if not os.path.exists(PYTHON_EXE):
+if not os.path.exists(MAIN_PYTHON):
 
-    print("❌ Python Environment not found")
-
-    input("\nPress Enter to Exit...")
-
+    print("❌ Main Python environment not found.")
+    input("\nPress Enter to close...")
     sys.exit()
 
 
-print("✅ Python Environment")
+print("✅ Main Python environment found.")
+
+
+if not os.path.exists(EYE_PYTHON):
+
+    print("❌ Eye Backend environment not found.")
+    input("\nPress Enter to close...")
+    sys.exit()
+
+
+print("✅ Eye Backend environment found.")
 
 
 if not os.path.exists(MAIN_FILE):
 
-    print("❌ backend/main.py not found")
-
-    input("\nPress Enter to Exit...")
-
+    print("❌ backend/main.py not found.")
+    input("\nPress Enter to close...")
     sys.exit()
 
 
-print("✅ Backend Found")
+print("✅ Main Backend found.")
+
+
+if not os.path.exists(EYE_MAIN):
+
+    print("❌ eye_backend/main.py not found.")
+    input("\nPress Enter to close...")
+    sys.exit()
+
+
+print("✅ Eye Backend found.")
 
 
 # ==========================================
-# Start Backend
+# Start Main Backend
 # ==========================================
 
-if not server_running():
+if not port_running(MAIN_PORT):
 
-    print("\nStarting FastAPI Backend...\n")
+    print()
+    print("Starting Main Backend...")
 
     subprocess.Popen(
-
-        [PYTHON_EXE, "main.py"],
-
+        [
+            MAIN_PYTHON,
+            "main.py"
+        ],
         cwd=BACKEND_DIR
-
     )
 
 else:
 
-    print("\nBackend already running.\n")
+    print()
+    print("Main Backend already running.")
 
 
 # ==========================================
-# Wait For Health
+# Start Eye Backend
 # ==========================================
 
-print("Loading Backend", end="", flush=True)
+if not port_running(EYE_PORT):
 
-while True:
+    print("Starting Eye Backend...")
 
-    try:
+    subprocess.Popen(
+        [
+            EYE_PYTHON,
+            "main.py"
+        ],
+        cwd=EYE_BACKEND_DIR
+    )
 
-        urllib.request.urlopen(HEALTH_URL)
+else:
+
+    print("Eye Backend already running.")
+
+
+# ==========================================
+# Wait For Servers
+# ==========================================
+
+print()
+print("Waiting for servers", end="", flush=True)
+
+for i in range(30):
+
+    main_ready = port_running(MAIN_PORT)
+    eye_ready = port_running(EYE_PORT)
+
+    if main_ready and eye_ready:
 
         break
 
-    except:
+    print(".", end="", flush=True)
 
-        print(".", end="", flush=True)
+    time.sleep(1)
 
-        time.sleep(1)
-
-print("\n")
-
-
-# ==========================================
-# Launch Browser
-# ==========================================
-
-print("Opening Browser...\n")
-
-webbrowser.open(HOME_URL)
-
-
-# ==========================================
-# Finish
-# ==========================================
-
-print("==========================================")
-print(" SilentVoice AI is Ready!")
-print("==========================================")
 print()
-print(f" Local URL : {HOME_URL}")
 print()
-print("You may now use SilentVoice AI.")
+
+
+# ==========================================
+# Server Status
+# ==========================================
+
+if port_running(MAIN_PORT):
+
+    print("✅ Main Backend : http://127.0.0.1:8001")
+
+else:
+
+    print("❌ Main Backend failed to start.")
+
+
+if port_running(EYE_PORT):
+
+    print("✅ Eye Backend  : http://127.0.0.1:8002")
+
+else:
+
+    print("❌ Eye Backend failed to start.")
+
+
+# ==========================================
+# Open Google Chrome
+# ==========================================
+
 print()
+print("Opening Google Chrome...")
+
+
+CHROME_PATHS = [
+
+    r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+
+    r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+
+    os.path.expandvars(
+        r"%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe"
+    )
+]
+
+
+chrome_opened = False
+
+
+for chrome_path in CHROME_PATHS:
+
+    if os.path.exists(chrome_path):
+
+        subprocess.Popen(
+            [
+                chrome_path,
+                HOME_URL
+            ]
+        )
+
+        chrome_opened = True
+
+        break
+
+
+# ==========================================
+# Fallback Browser
+# ==========================================
+
+if not chrome_opened:
+
+    print("⚠️ Chrome executable not found.")
+
+    print("Opening default browser instead...")
+
+    webbrowser.open(HOME_URL)
+
+
+# ==========================================
+# Finished
+# ==========================================
+
+print()
+print("===================================")
+print("        SilentVoice AI Ready")
+print("===================================")
+print()
+print("Main Backend : 8001")
+print("Eye Backend  : 8002")
+print()
+print(f"Website      : {HOME_URL}")
+print()
+print("===================================")
+
+input("\nPress Enter to close launcher...")

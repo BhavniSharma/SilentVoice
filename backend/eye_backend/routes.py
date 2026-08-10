@@ -61,3 +61,13 @@ async def predict(file: UploadFile = File(...)):
         "decoded_letter": decoded_letter,
         "current_sentence": after
     }
+
+@router.post("/clear")
+def clear():
+
+    morse.clear_message()
+
+    return {
+        "success": True,
+        "message": "Cleared Successfully"
+    }

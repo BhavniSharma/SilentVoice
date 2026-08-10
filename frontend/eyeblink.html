@@ -102,9 +102,25 @@ decodes them into text, and speaks them aloud in real time.
                     playsinline>
                 </video>
 
-                <div id="cameraPlaceholder">
+                <div class="eye-frame">
 
-                    <i data-lucide="eye"></i>
+    <div class="corner top-left"></div>
+
+    <div class="corner top-right"></div>
+
+    <div class="corner bottom-left"></div>
+
+    <div class="corner bottom-right"></div>
+
+</div>
+
+<p class="frame-text">
+
+Keep your eyes inside the frame
+
+</p>
+
+                <div id="cameraPlaceholder">
 
                     <p>Click Start Camera</p>
 
@@ -117,8 +133,6 @@ decodes them into text, and speaks them aloud in real time.
         <button
             id="startCamera"
             class="primary-btn">
-
-            <i data-lucide="video"></i>
 
             Start Camera
 
@@ -276,14 +290,6 @@ decodes them into text, and speaks them aloud in real time.
     <div
         id="loadingText"
         class="loading-text">
-
-        <div class="loader"></div>
-
-        <span>
-
-            Detecting eye blinks...
-
-        </span>
 
     </div>
 

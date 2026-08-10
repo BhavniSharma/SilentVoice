@@ -53,7 +53,7 @@ loginForm.addEventListener("submit", async function (e) {
     );
 
     
-window.location.href = "/modules";
+window.location.href = "/dashboard";
 
 } else {
 
